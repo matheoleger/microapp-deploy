@@ -2,21 +2,21 @@ apiVersion: v1
 kind: Service
 metadata:
   name: order-service-service
-# spec:
-#   type: ClusterIP
-#   ports:
-#   - port: 3002
-#     targetPort: 3002
-#   selector:
-#     app: order-service
-
-# I need a NodePort because of requests from React... (it's client request so we need to access outside the cluster)
 spec:
+  type: ClusterIP
+  ports:
+  - port: 3002
+    targetPort: 3002
   selector:
     app: order-service
-  type: NodePort
-  ports:
-    - protocol: TCP
-      port: 3002
-      targetPort: 3002
-      nodePort: 31002
+
+# I need a NodePort because of requests from React... (it's client request so we need to access outside the cluster)
+# spec:
+#   selector:
+#     app: order-service
+#   type: NodePort
+#   ports:
+#     - protocol: TCP
+#       port: 3002
+#       targetPort: 3002
+#       nodePort: 31002
