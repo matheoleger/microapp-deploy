@@ -8,14 +8,15 @@ jobs:
   deploy-argocd:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
       - name: Extract version from payload
         run: |
           version=${{ github.event.client_payload.version }}
+      
       - name: Modify images version 
         run: |
-          pwd
-          cat frontend-deployment.yaml
-          pwd
           sed -i "s+matheoleger/frontend.*+matheoleger/frontend:$version+g" frontend-deployment.yaml
           sed -i "s+matheoleger/order-service.*+matheoleger/order-service:$version+g" order-service-deployment.yaml
           sed -i "s+matheoleger/user-service.*+matheoleger/user-service:$version+g" user-service-deployment.yaml
