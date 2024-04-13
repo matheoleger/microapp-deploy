@@ -1,0 +1,23 @@
+name: Automated deployment for ArgoCD
+
+on:
+  repository_dispatch:
+    types: [trigger-workflow]
+    
+jobs:
+  deploy-argocd:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract version from payload
+        run: |
+          version=${{ github.event.client_payload.version }}
+      - name: Modify images version 
+        run: |
+          sed -i "s+matheoleger/frontend.*+matheoleger/frontend:$version+g" frontend-deployment.yaml
+          sed -i "s+matheoleger/order-service.*+matheoleger/order-service:$version+g" order-service-deployment.yaml
+          sed -i "s+matheoleger/user-service.*+matheoleger/user-service:$version+g" user-service-deployment.yaml
+          git config user.name matheoleger
+          git config user.email matheo.leger@ynov.com
+          git add .
+          git commit -m "Updated images to $version"
+          git push origin main
