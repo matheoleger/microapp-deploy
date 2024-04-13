@@ -15,7 +15,7 @@ spec:
         app: user-service
     spec:
       containers:
-      - image: matheoleger/user-service:latest
+      - image: matheoleger/user-service:
         name: user-service
         ports:
         - containerPort: 3001
