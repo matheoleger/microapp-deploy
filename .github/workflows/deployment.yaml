@@ -11,17 +11,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       
-      - name: Extract version from payload
-        run: |
-          version=${{ github.event.client_payload.version }}
+    #   - name: Extract version from payload
+    #     run: |
+    #       version=${{ github.event.client_payload.version }}
       
       - name: Modify images version 
         run: |
-          sed -i "s+matheoleger/frontend.*+matheoleger/frontend:$version+g" frontend-deployment.yaml
-          sed -i "s+matheoleger/order-service.*+matheoleger/order-service:$version+g" order-service-deployment.yaml
-          sed -i "s+matheoleger/user-service.*+matheoleger/user-service:$version+g" user-service-deployment.yaml
+          sed -i "s+matheoleger/frontend.*+matheoleger/frontend:$VERSION+g" frontend-deployment.yaml
+          sed -i "s+matheoleger/order-service.*+matheoleger/order-service:$VERSION+g" order-service-deployment.yaml
+          sed -i "s+matheoleger/user-service.*+matheoleger/user-service:$VERSION+g" user-service-deployment.yaml
           git config user.name matheoleger
           git config user.email matheo.leger@ynov.com
           git add .
-          git commit -m "Updated images to $version"
+          git commit -m "Updated images to $VERSION"
           git push origin main
+        env:
+          VERSION: ${{ github.event.client_payload.version }}
