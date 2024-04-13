@@ -6,15 +6,12 @@ on:
     
 jobs:
   deploy-argocd:
+    name: Modifiy manifests to deploy with the newest version of images
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
-    #   - name: Extract version from payload
-    #     run: |
-    #       version=${{ github.event.client_payload.version }}
-      
+
       - name: Modify images version 
         run: |
           sed -i "s+matheoleger/frontend.*+matheoleger/frontend:$VERSION+g" frontend-deployment.yaml
