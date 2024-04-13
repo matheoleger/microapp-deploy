@@ -15,7 +15,7 @@ spec:
         app: frontend
     spec:
       containers:
-      - image: matheoleger/frontend:latest
+      - image: matheoleger/frontend:
         name: frontend
         ports:
         - containerPort: 3000
