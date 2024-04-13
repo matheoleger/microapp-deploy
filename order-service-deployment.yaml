@@ -15,7 +15,7 @@ spec:
         app: order-service
     spec:
       containers:
-      - image: matheoleger/order-service:0.6.0
+      - image: matheoleger/order-service:0.7.0
         name: order-service
         ports:
         - containerPort: 3002
